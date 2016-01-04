@@ -1,4 +1,24 @@
+(setq package-list '(nyan-mode
+		     fic-ext-mode
+		     sr-speedbar
+		     auto-complete
+		     solarized-theme))
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")
+                         ("marmalade" . "https://marmalade-repo.org/packages/")))
+
 (package-initialize)
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
 (server-start)
 (add-to-list 'load-path "~/.emacs.d/elisp")
 ;; (add-to-list 'load-path "c:/users/pinkb/Documents/GitHub/nyan-mode")
@@ -99,11 +119,6 @@
     ("mayapy" "c:\\Users\\pinkb\\AppData\\Roaming\\.emacs.d\\elpa\\jedi-0.1.2\\jediepcserver.py")))
  '(nyan-animate-nyancat t)
  '(nyan-wavy-trail t)
- '(package-archives
-   (quote
-    (("melpa" . "https://melpa.org/packages/")
-     ("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/"))))
  '(python-shell-interpreter "mayapy.exe")
  '(save-place t nil (saveplace))
  '(scroll-bar-mode (quote right))
