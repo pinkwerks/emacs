@@ -2,7 +2,12 @@
 		     fic-ext-mode
 		     sr-speedbar
 		     auto-complete
-		     solarized-theme))
+		     solarized-theme
+		     babel
+		     graphviz-dot-mode
+		     ob-ipython
+		     markdown-mode
+		     web-mode))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
@@ -19,9 +24,18 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+
 (server-start)
+
+
 (add-to-list 'load-path "~/.emacs.d/elisp")
-;; (add-to-list 'load-path "c:/users/pinkb/Documents/GitHub/nyan-mode")
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)))
+
+(setq org-src-fontify-natively t)
+(setq org-html-validation-link nil)
 
 (setq inferior-lisp-program "sbcl.exe")
 (setq slime-contribs '(slime-fancy))
@@ -96,6 +110,7 @@
  '(custom-safe-themes
    (quote
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(desktop-save-mode t)
  '(ediff-diff-options "--binary -w")
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(fci-rule-color "#383838")
