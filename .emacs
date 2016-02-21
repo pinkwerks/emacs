@@ -1,3 +1,5 @@
+;; Package management
+
 (setq package-list '(nyan-mode
 		     fic-ext-mode
 		     sr-speedbar
@@ -6,6 +8,8 @@
 		     babel
 		     graphviz-dot-mode
 		     ob-ipython
+		     js2-mode
+		     ac-js2
 		     web-mode))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -24,6 +28,9 @@
     (ignore-errors
       (package-install package))))
 
+;; js2-mode
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js2-mode-hook 'ac-js2-mode)
 
 (server-start)
 
