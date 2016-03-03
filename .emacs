@@ -6,7 +6,6 @@
 		     auto-complete
 		     solarized-theme
 		     babel
-		     graphviz-dot-mode
 		     ob-ipython
 		     js2-mode
 		     ac-js2
