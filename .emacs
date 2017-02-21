@@ -1,8 +1,11 @@
 ;; Package management
 
+
 (setq package-list '(nyan-mode
                      csharp-mode
-                     fic-ext-mode
+                     ac-nrepl
+                     fic-mode
+                     magit
                      sr-speedbar
                      auto-complete
                      solarized-theme
@@ -67,13 +70,14 @@
 (setq org-src-fontify-natively t)
 (setq org-html-validation-link nil)
 
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl.exe")
 (setq slime-contribs '(slime-fancy))
 
 (require 'nyan-mode)
 (nyan-mode)
 
-(require 'fic-ext-mode)
+;; (require 'fic-ext-mode)
 
 (require 'sr-speedbar)
 ;; (global-set-key (kbd "s-z") 'sr-speedbar-toggle)
@@ -219,6 +223,9 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(nyan-animate-nyancat t)
  '(nyan-wavy-trail t)
+ '(package-selected-packages
+   (quote
+    (magit git-commit paredit slime cider-eval-sexp-fu elein hlsl-mode winner-mode-enable web-mode sr-speedbar solarized-theme ob-ipython nyan-mode markdown-mode js2-mode hideshowvis graphviz-dot-mode glsl-mode fic-mode dired+ csharp-mode babel auto-complete)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(python-shell-interpreter "mayapy.exe")
@@ -268,4 +275,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "ProFontWindows" :foundry "raster" :slant normal :weight normal :height 90 :width normal)))))
+ '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
