@@ -1,9 +1,8 @@
 ;; Package management
-
-
 (setq package-list '(nyan-mode
                      csharp-mode
                      ac-nrepl
+                     powershell
                      fic-mode
                      magit
                      sr-speedbar
@@ -12,6 +11,8 @@
                      babel
                      graphviz-dot-mode
                      ob-ipython
+                     better-defaults
+                     elpy
                      hlsl-mode
                      markdown-mode
                      web-mode
@@ -27,10 +28,9 @@
 
 (package-initialize)
 
-(setq find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
+(require 'better-defaults)
 
-(when (fboundp 'winner-mode)
-  (winner-mode 1))
+(setq find-program "C:\\\"Program Files (x86)\"\\GnuWin32\\bin\\find.exe")
 
 ;; fetch the list of packages available
 (unless package-archive-contents
@@ -42,11 +42,12 @@
     (ignore-errors
       (package-install package))))
 
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
+
 ;; js2-mode
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (add-hook 'js2-mode-hook 'ac-js2-mode)
-
-(hideshowvis-enable)
 
 ;; (server-start)
 
@@ -70,16 +71,18 @@
 (setq org-src-fontify-natively t)
 (setq org-html-validation-link nil)
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl.exe")
-(setq slime-contribs '(slime-fancy))
+(let ((file "~/quicklisp/slime-helper.el"))
+  (if (file-exists-p file)
+      (load (expand-file-name "~/quicklisp/slime-helper.el")))
+  (setq inferior-lisp-program "sbcl.exe")
+  (setq slime-contribs '(slime-fancy)))
 
 (require 'nyan-mode)
 (nyan-mode)
 
 ;; (require 'fic-ext-mode)
 
-(require 'sr-speedbar)
+;; (require 'sr-speedbar)
 ;; (global-set-key (kbd "s-z") 'sr-speedbar-toggle)
 
 (add-to-list 'hs-special-modes-alist
@@ -89,21 +92,20 @@
                "<!--"
                nxml-forward-element
                nil))
-
 (add-hook 'nxml-mode-hook 'hs-minor-mode)
-
 ;; (require 'highlight-indentation)
 
-(autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
-(autoload 'hideshowvis-minor-mode
-  "hideshowvis"
-  "Will indicate regions foldable with hideshow in the fringe."
-  'interactive)
-
-(dolist (hook (list 'emacs-lisp-mode-hook
-                    'c++-mode-hook
-                    'python-mode-hook))
-  (add-hook hook 'hideshowvis-enable))
+;;; hideshowvis
+;; (hideshowvis-enable)
+;; (autoload 'hideshowvis-enable "hideshowvis" "Highlight foldable regions")
+;; (autoload 'hideshowvis-minor-mode
+;;   "hideshowvis"
+;;   "Will indicate regions foldable with hideshow in the fringe."
+;;   'interactive)
+;; (dolist (hook (list 'emacs-lisp-mode-hook
+;;                     'c++-mode-hook
+;;                     'python-mode-hook))
+;;   (add-hook hook 'hideshowvis-enable))
 
 (require 'zone)
 (zone-when-idle 300)
@@ -153,7 +155,7 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 ;; (add-hook 'js2-mode-hook 'ac-js2-mode)
 
-;; (elpy-enable)
+(elpy-enable)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -183,10 +185,11 @@
  '(desktop-save-mode t)
  '(dired-dwim-target t)
  '(ediff-diff-options "--binary -w")
- '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain) t)
  '(fci-rule-color "#073642")
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
  '(fringe-mode nil nil (fringe))
+ '(global-linum-mode t)
  '(grep-command "grep -nH -i -r -e ")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -225,11 +228,12 @@
  '(nyan-wavy-trail t)
  '(package-selected-packages
    (quote
-    (magit git-commit paredit slime cider-eval-sexp-fu elein hlsl-mode winner-mode-enable web-mode sr-speedbar solarized-theme ob-ipython nyan-mode markdown-mode js2-mode hideshowvis graphviz-dot-mode glsl-mode fic-mode dired+ csharp-mode babel auto-complete)))
+    (powershell elpy better-defaults magit git-commit paredit slime cider-eval-sexp-fu elein hlsl-mode winner-mode-enable web-mode sr-speedbar solarized-theme ob-ipython nyan-mode markdown-mode js2-mode hideshowvis graphviz-dot-mode glsl-mode fic-mode dired+ csharp-mode babel auto-complete)))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
- '(python-shell-interpreter "mayapy.exe")
- '(save-place t nil (saveplace))
+ '(python-check-command "flake8")
+ '(python-shell-interpreter "ipython")
+ '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(size-indication-mode t)
